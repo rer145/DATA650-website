@@ -1,0 +1,42 @@
+---
+title: "dyplr"
+author: "Ron Richardson"
+date: "August 30, 2017"
+output: html_document
+---
+# This is a header
+## Secondary header
+I can *emphasis* text with an asterisk.  
+But othertimes I can **bold** the text too.  
+And [link](http://www.google.com/) to other sites too.
+
+New paragraph with a list too.
+
+* Item 1
+* Item 2
+* Item 3
+
++ Item 1
++ Item 2
+
+Table Header | Table Header | Table Header
+---|---|---
+Col 1 | Col 2 | Col 3
+Row 2 |  | Row 2
+
+
+Now onto some code:
+``` {r eval=FALSE}
+var x = 1023;
+x = y(test);
+```
+
+If you want it executed, do this:
+``` {r}
+dim(iris)
+```
+
+![](https://unsplash.it/300/300/?random)
+
+### Use HTML to change some attributes 
+<img src="https://unsplash.it/100/100/?random" width="100" height="100" alt="Random Image" />
