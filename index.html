@@ -11,7 +11,6 @@
 
 <meta name="author" content="Ron Richardson" />
 
-<meta name="date" content="2017-08-30" />
 
 <title>dplyr</title>
 
@@ -119,7 +118,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">dplyr</h1>
 <h4 class="author"><em>Ron Richardson</em></h4>
-<h4 class="date"><em>August 30, 2017</em></h4>
+<h4 class="date"><em>September 01 , 2017</em></h4>
 
 </div>
 
@@ -129,14 +128,7 @@ $(document).ready(function () {
 <p>When using dplyr, you can filter columns and rows by using select and filter. Below is an example using the Lahman baseball database. We first need to load the Lahman and dplyr packages.</p>
 <pre class="r"><code>library(Lahman)
 library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: 'dplyr'</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
+<p>Now to find any New York Yankee with over 50 home runs from any year, run the following:</p>
 <pre class="r"><code>Batting %&gt;% 
   select(playerID, yearID, teamID, HR) %&gt;%
   filter(teamID == 'NYA' &amp; HR &gt; 50) %&gt;%

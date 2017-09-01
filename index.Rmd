@@ -1,18 +1,25 @@
 ---
 title: "dplyr"
 author: "Ron Richardson"
-date: "August 30, 2017"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
 output: html_document
 ---
 ## Filtering Columns and Rows
 
 When using dplyr, you can filter columns and rows by using select and filter. Below is an example using the Lahman baseball database. We first need to load the Lahman and dplyr packages.
 
-``` {r}
+``` {r message=FALSE, warning=FALSE}
 library(Lahman)
 library(dplyr)
+
+```
+
+Now to find any New York Yankee with over 50 home runs from any year, run the following:
+
+```{r}
 Batting %>% 
   select(playerID, yearID, teamID, HR) %>%
   filter(teamID == 'NYA' & HR > 50) %>%
   arrange(desc(HR))
 ```
+
