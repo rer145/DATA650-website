@@ -1,42 +1,18 @@
 ---
-title: "dyplr"
+title: "dplyr"
 author: "Ron Richardson"
 date: "August 30, 2017"
 output: html_document
 ---
-# This is a header
-## Secondary header
-I can *emphasis* text with an asterisk.  
-But othertimes I can **bold** the text too.  
-And [link](http://www.google.com/) to other sites too.
+## Filtering Columns and Rows
 
-New paragraph with a list too.
+When using dplyr, you can filter columns and rows by using select and filter. Below is an example using the Lahman baseball database. We first need to load the Lahman and dplyr packages.
 
-* Item 1
-* Item 2
-* Item 3
-
-+ Item 1
-+ Item 2
-
-Table Header | Table Header | Table Header
----|---|---
-Col 1 | Col 2 | Col 3
-Row 2 |  | Row 2
-
-
-Now onto some code:
-``` {r eval=FALSE}
-var x = 1023;
-x = y(test);
-```
-
-If you want it executed, do this:
 ``` {r}
-dim(iris)
+library(Lahman)
+library(dplyr)
+Batting %>% 
+  select(playerID, yearID, teamID, HR) %>%
+  filter(teamID == 'NYA' & HR > 50) %>%
+  arrange(desc(HR))
 ```
-
-![](https://unsplash.it/200/300/?random)
-
-### Use HTML to change some attributes 
-<img src="boat.jpg" width="100" height="100" alt="Random Image" />
