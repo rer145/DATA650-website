@@ -36,6 +36,7 @@ If you want it executed, do this:
 dim(iris)
 ```
 
+![](https://unsplash.it/200/300/?random)
 
 ### Use HTML to change some attributes 
 <img src="boat.jpg" width="100" height="100" alt="Random Image" />
