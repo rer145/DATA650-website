@@ -6,7 +6,7 @@ output: html_document
 ---
 <img src="https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/13769451_10157191619465564_392757995696437265_n.jpg?oh=7d8cdeaeef449eef407ab7df998f1207&oe=5A5AC8AC" width="300" height="300" alt="Hello, this Ron" />
 
-*Ron Richardson is currently is a Data Science student at Mercyhurst University*
+*Ron Richardson is currently is a Data Science student at Mercyhurst University.*
 
 
 ## Filtering Columns and Rows
