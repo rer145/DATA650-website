@@ -4,6 +4,9 @@ author: "Ron Richardson"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output: html_document
 ---
+<img src="https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/13769451_10157191619465564_392757995696437265_n.jpg?oh=7d8cdeaeef449eef407ab7df998f1207&oe=5A5AC8AC" width="300" height="300" alt="Hello, this Ron" />
+
+
 ## Filtering Columns and Rows
 
 When using dplyr, you can filter columns and rows by using select and filter. Below is an example using the Lahman baseball database. We first need to load the Lahman and dplyr packages.
