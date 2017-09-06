@@ -28,3 +28,63 @@ Batting %>%
   arrange(desc(HR))
 ```
 
+
+## Examples from 09/06/2017 Class
+
+The first example asks for only players of the New York Yankees that have hit 40 HR or more. I've added code to order the results from most HR to lowest to get a quick view of the biggest HR hitters.
+
+```{r}
+Batting %>%
+  select(yearID, teamID, playerID, HR) %>%
+  filter(teamID == 'NYA' & HR >= 40) %>%
+  arrange(desc(HR))
+```
+
+Next up, we want to see if these big HR hitters can do so without striking out so much. Ordering by the lest amount of strikouts to most helps us figure out the best HR to SO ratio.
+
+```{r}
+Batting %>%
+  select(yearID, teamID, playerID, HR, SO) %>%
+  filter(HR > 40 & SO < 60) %>%
+  arrange(SO)
+```
+
+
+Switching teams now to the Philadelpia Phillies, we want to only look at players in the 1970s that have hit more than 30 HR. There are two ways of filtering the yearID field, and both are shown below.  Only the first filtering method was discussed in class.
+
+```{r}
+Batting %>%
+  select(yearID, teamID, playerID, HR) %>%
+  filter(teamID == 'PHI' & yearID >= 1970 & yearID <= 1979 & HR > 30) %>%
+  arrange(desc(HR))
+```
+
+
+Having to enter multiple conditions in the filter function can become tedious and hard to read. What we can do is use the 'between' function to make the code a bit clearer. The 'between' function takes the field and the first and last values in the range and filters the results.
+
+```{r}
+Batting %>%
+  select(yearID, teamID, playerID, HR) %>%
+  filter(teamID == 'PHI' & between(yearID, 1970, 1979) & HR > 30) %>%
+  arrange(desc(HR))
+```
+
+
+Now we want to start ordering our results into a more sensible method. We use the 'arrange' function for this. The desc() function orders values from highest to lowest.
+
+```{r}
+Batting %>%
+  select(yearID, teamID, playerID, HR) %>%
+  filter(HR > 50) %>%
+  arrange(desc(HR))
+```
+
+
+A more complex example will find players that have at least 400 at-bats (AB), but very few strikeouts (SO less than 10). Here we can order the results by multiple columns. The first column (SO) is ordered lowest to highest, and the second column (desc(AB)) orders the values from highest to lowest.  This allows us to view the least amount of strikouts with the most at-bats (in case of ties with SO).
+
+```{r}
+Batting %>%
+  select(yearID, teamID, playerID, AB, SO) %>%
+  filter(AB >= 400 & SO < 10) %>%
+  arrange(SO, desc(AB))
+```
