@@ -88,3 +88,57 @@ Batting %>%
   filter(AB >= 400 & SO < 10) %>%
   arrange(SO, desc(AB))
 ```
+
+
+## Grouping and aggregating data
+
+A simple grouping of data can be done by using the group_by function. Below is an example of getting the best HR hitters with their career HR totals. Note that using the select function is not required, since it will pull the columns being used (the one being grouped and the one that is grouped by).
+
+The summarize() function tells dplyr what to do with the grouping.  Other functions are available when grouping data as well.
+
+```{r}
+#Find the career HR totals for all players, limited to players with career total of 600 or more
+# order from highest to lowest
+Batting %>%
+  group_by(playerID) %>%
+  summarize(career_HR = sum(HR)) %>%
+  filter(career_HR >= 600) %>%
+  arrange(desc(career_HR))
+```
+
+Another way to aggregate data is to take the average.  Here we take the average season HR totals for players. The mean() function is used to calculate the average of the values.
+
+```{r}
+#What players have the highest average per season HR totals?
+Batting %>%
+  group_by(playerID) %>%
+  summarize(season_avg = mean(HR)) %>%
+  filter(season_avg >= 30) %>%
+  arrange(desc(season_avg))
+```
+
+Additionally you can add multiple aggreated values as new columns. Here we find the top players for HR season, along with their lowest and highest season totals
+
+```{r}
+#multiple column groupings
+Batting %>%
+  group_by(playerID) %>%
+  summarize(season_avg = mean(HR), min_HR = min(HR), max_HR = max(HR)) %>%
+  filter(season_avg >= 30) %>%
+  arrange(desc(season_avg))
+```
+
+
+In some cases, it's important to filter out data you don't want first, before you do any grouping and aggregating.  In this example, we want players that hit over 50 HR in a season (listed only once), but only from 1970 and later.  Here we only want to show the player's name and not the HR total.
+
+```{r}
+#What players from 1970 to today have hit more than 50 HR at least once? Don't list a player more than once.
+Batting %>%
+  filter(yearID >= 1970) %>%
+  group_by(playerID) %>%
+  summarize(season_hr = max(HR)) %>%
+  filter(season_hr > 50) %>%
+  arrange(desc(season_hr)) %>%
+  select(playerID)
+```
+

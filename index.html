@@ -11,7 +11,7 @@
 
 <meta name="author" content="Ron Richardson" />
 
-<meta name="date" content="2017-09-06" />
+<meta name="date" content="2017-09-08" />
 
 <title>dplyr</title>
 
@@ -119,7 +119,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">dplyr</h1>
 <h4 class="author"><em>Ron Richardson</em></h4>
-<h4 class="date"><em>September 06, 2017</em></h4>
+<h4 class="date"><em>September 08, 2017</em></h4>
 
 </div>
 
@@ -361,6 +361,101 @@ library(dplyr)</code></pre>
 ## 63   1921    CHN  dealch01 422  9
 ## 64   1945    PHA busched01 416  9
 ## 65   1883    CHN ansonca01 413  9</code></pre>
+</div>
+<div id="grouping-and-aggregating-data" class="section level2">
+<h2>Grouping and aggregating data</h2>
+<p>A simple grouping of data can be done by using the group_by function. Below is an example of getting the best HR hitters with their career HR totals. Note that using the select function is not required, since it will pull the columns being used (the one being grouped and the one that is grouped by).</p>
+<p>The summarize() function tells dplyr what to do with the grouping. Other functions are available when grouping data as well.</p>
+<pre class="r"><code>#Find the career HR totals for all players, limited to players with career total of 600 or more
+# order from highest to lowest
+Batting %&gt;%
+  group_by(playerID) %&gt;%
+  summarize(career_HR = sum(HR)) %&gt;%
+  filter(career_HR &gt;= 600) %&gt;%
+  arrange(desc(career_HR))</code></pre>
+<pre><code>## # A tibble: 8 x 2
+##    playerID career_HR
+##       &lt;chr&gt;     &lt;int&gt;
+## 1 bondsba01       762
+## 2 aaronha01       755
+## 3  ruthba01       714
+## 4 rodrial01       696
+## 5  mayswi01       660
+## 6 griffke02       630
+## 7 thomeji01       612
+## 8  sosasa01       609</code></pre>
+<p>Another way to aggregate data is to take the average. Here we take the average season HR totals for players. The mean() function is used to calculate the average of the values.</p>
+<pre class="r"><code>#What players have the highest average per season HR totals?
+Batting %&gt;%
+  group_by(playerID) %&gt;%
+  summarize(season_avg = mean(HR)) %&gt;%
+  filter(season_avg &gt;= 30) %&gt;%
+  arrange(desc(season_avg))</code></pre>
+<pre><code>## # A tibble: 13 x 2
+##     playerID season_avg
+##        &lt;chr&gt;      &lt;dbl&gt;
+##  1 pujolal01   36.93750
+##  2 bondsba01   34.63636
+##  3 mcgwima01   34.29412
+##  4 kinerra01   33.54545
+##  5 aaronha01   32.82609
+##  6 bryankr01   32.50000
+##  7  ruthba01   32.45455
+##  8  sosasa01   32.05263
+##  9 cabremi01   31.85714
+## 10 belleal01   31.75000
+## 11 rodrial01   31.63636
+## 12 schmimi01   30.44444
+## 13 abreujo02   30.33333</code></pre>
+<p>Additionally you can add multiple aggreated values as new columns. Here we find the top players for HR season, along with their lowest and highest season totals</p>
+<pre class="r"><code>#multiple column groupings
+Batting %&gt;%
+  group_by(playerID) %&gt;%
+  summarize(season_avg = mean(HR), min_HR = min(HR), max_HR = max(HR)) %&gt;%
+  filter(season_avg &gt;= 30) %&gt;%
+  arrange(desc(season_avg))</code></pre>
+<pre><code>## # A tibble: 13 x 4
+##     playerID season_avg min_HR max_HR
+##        &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 pujolal01   36.93750     17     49
+##  2 bondsba01   34.63636      5     73
+##  3 mcgwima01   34.29412      3     70
+##  4 kinerra01   33.54545      7     54
+##  5 aaronha01   32.82609     10     47
+##  6 bryankr01   32.50000     26     39
+##  7  ruthba01   32.45455      0     60
+##  8  sosasa01   32.05263      1     66
+##  9 cabremi01   31.85714     12     44
+## 10 belleal01   31.75000      1     50
+## 11 rodrial01   31.63636      0     57
+## 12 schmimi01   30.44444      1     48
+## 13 abreujo02   30.33333     25     36</code></pre>
+<p>In some cases, it’s important to filter out data you don’t want first, before you do any grouping and aggregating. In this example, we want players that hit over 50 HR in a season (listed only once), but only from 1970 and later. Here we only want to show the player’s name and not the HR total.</p>
+<pre class="r"><code>#What players from 1970 to today have hit more than 50 HR at least once? Don't list a player more than once.
+Batting %&gt;%
+  filter(yearID &gt;= 1970) %&gt;%
+  group_by(playerID) %&gt;%
+  summarize(season_hr = max(HR)) %&gt;%
+  filter(season_hr &gt; 50) %&gt;%
+  arrange(desc(season_hr)) %&gt;%
+  select(playerID)</code></pre>
+<pre><code>## # A tibble: 14 x 1
+##     playerID
+##        &lt;chr&gt;
+##  1 bondsba01
+##  2 mcgwima01
+##  3  sosasa01
+##  4 howarry01
+##  5 gonzalu01
+##  6 rodrial01
+##  7 griffke02
+##  8 bautijo02
+##  9 ortizda01
+## 10 davisch02
+## 11 fostege01
+## 12 thomeji01
+## 13 fieldce01
+## 14 jonesan01</code></pre>
 </div>
 
 
